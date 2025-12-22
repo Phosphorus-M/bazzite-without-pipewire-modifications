@@ -145,11 +145,9 @@ RUN --mount=type=cache,dst=/var/cache \
     dnf5 -y install --enable-repo="linux-surface" --allowerasing \
         iptsd \
         libwacom-surface && \
-    dnf5 -y remove \
-        pipewire-config-raop && \
     declare -A toswap=( \
         ["copr:copr.fedorainfracloud.org:ublue-os:bazzite"]="wireplumber" \
-        ["copr:copr.fedorainfracloud.org:ublue-os:bazzite-multilib"]="pipewire bluez xorg-x11-server-Xwayland" \
+        ["copr:copr.fedorainfracloud.org:ublue-os:bazzite-multilib"]="bluez xorg-x11-server-Xwayland" \
         ["terra-mesa"]="mesa-filesystem" \
         ["copr:copr.fedorainfracloud.org:ublue-os:staging"]="fwupd" \
     ) && \
@@ -157,15 +155,6 @@ RUN --mount=type=cache,dst=/var/cache \
         for package in ${toswap[$repo]}; do dnf5 -y swap --repo=$repo $package $package; done; \
     done && unset -v toswap repo package && \
     dnf5 versionlock add \
-        pipewire \
-        pipewire-alsa \
-        pipewire-gstreamer \
-        pipewire-jack-audio-connection-kit \
-        pipewire-jack-audio-connection-kit-libs \
-        pipewire-libs \
-        pipewire-plugin-libcamera \
-        pipewire-pulseaudio \
-        pipewire-utils \
         wireplumber \
         wireplumber-libs \
         bluez \
@@ -216,6 +205,16 @@ RUN --mount=type=cache,dst=/var/cache \
     dnf5 -y install \
         $(/ctx/ghcurl https://api.github.com/repos/ublue-os/cicpoffs/releases/latest | jq -r '.assets[] | select(.name| test(".*rpm$")).browser_download_url') && \
     dnf5 -y install \
+        pipewire \
+        pipewire-alsa \
+        pipewire-gstreamer \
+        pipewire-jack-audio-connection-kit \
+        pipewire-jack-audio-connection-kit-libs \
+        pipewire-libs \
+        pipewire-plugin-libcamera \
+        pipewire-pulseaudio \
+        pipewire-utils \
+        pipewire-devel \
         bazaar \
         iwd \
         greenboot \

@@ -216,6 +216,7 @@ RUN --mount=type=cache,dst=/var/cache \
         pipewire-plugin-libcamera \
         pipewire-pulseaudio \
         pipewire-utils \
+        pipewire-devel \
         bazaar \
         iwd \
         greenboot \
